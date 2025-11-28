@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mental health</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#7dd3fc;
+      --accent-2:#60a5fa;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+      html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      color: #e6eef8;
+      background: 
+        linear-gradient(180deg, rgba(7, 17, 38, 0.7) 0%, rgba(7, 24, 38, 0.9) 100%),
+        url('bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .wrap{max-width:1100px;margin:32px auto;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;box-shadow:0 8px 30px rgba(2,6,23,0.7);}
+    header{display:flex;align-items:center;gap:18px;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:58px;height:58px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#05223b;box-shadow:0 6px 18px rgba(96,165,250,0.12)}
+    .brand h1{margin:0;font-size:18px}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600}
+    nav a.active, nav a:hover{background:var(--glass);color:var(--accent-2)}
+
+    .hero{display:flex;gap:24px;align-items:center;margin-top:22px}
+    .hero .left{flex:1}
+    .hero h2{margin:0;font-size:28px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);}
+
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+    .info p{color:var(--muted);line-height:1.6}
+
+    /* About */
+    .about{margin-top:12px}
+    .about h3{margin-top:0}
+
+    /* Contact */
+    form{display:grid;gap:10px}
+    label{font-size:13px;color:var(--muted)}
+    input[type=text], input[type=email], textarea{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#e6eef8;font-size:14px;outline:none}
+    textarea{min-height:120px;resize:vertical}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#05223b;font-weight:700;border:none;cursor:pointer}
+    .muted{color:var(--muted);font-size:13px}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* Sections for single-file nav */
+    main section{display:none}
+    main section.active{display:block}
+
+    /* Responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .logo{width:48px;height:48px}
+      .hero{flex-direction:column;align-items:flex-start}
+    }
+    /* Causes section enhanced */
+.causes-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 24px;
+  margin-top: 16px;
+}
+
+.causes-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--accent-2);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: 0.25s;
+}
+
+.causes-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(4px);
+  border-left-color: var(--accent);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.25);
+}
+
+.causes-icon {
+  color: var(--accent-2);
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+/* Responsive for small screens */
+@media (max-width:700px){
+  .causes-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cause-desc {
+  display: none;
+  margin-left: 25px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #f1eded;
+}
+
+.causes-item {
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+/* Symptoms section - modern grid layout */
+.symptoms-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 24px;
+  margin-top: 16px;
+}
+
+.symptoms-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: 0.25s;
+}
+
+.symptoms-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(4px);
+  border-left-color: var(--accent-2);
+  box-shadow: 0 0 12px rgba(125, 211, 252, 0.25);
+}
+
+.symptoms-icon {
+  color: var(--accent);
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+/* Responsive for small screens */
+@media (max-width:700px){
+  .symptoms-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.symptoms-desc {
+  display: none;
+  margin: 5px 0 10px 25px;
+  font-size: 14px;
+  color: hsl(0, 7%, 89%);
+}
+
+.symptoms-item {
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+
+/* Tips section - card grid with icons */
+.tips-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 24px;
+  margin-top: 16px;
+}
+
+.tips-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--accent-2);
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  transition: 0.25s;
+}
+
+.tips-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(4px);
+  border-left-color: var(--accent);
+  box-shadow: 0 0 12px rgba(125, 211, 252, 0.25);
+}
+
+.tips-icon {
+  color: var(--accent-2);
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.tip-desc {
+  display: none;
+  margin: 5px 0 10px 35px;
+  font-size: 14px;
+  color: #ebedf0;
+}
+.tips-item {
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+@media (max-width:700px){
+  .tips-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+</head>
+<body>
+<div class="wrap" role="main"> 
+    <header> 
+        <div class="brand"> 
+            <img src="logowebsite.png" alt="Mental Health Logo" class="logo" style="width:60px; height:60px; border-radius:50%; object-fit:cover; margin-right:10px;"> 
+            <div> <h1>Mental health</h1>
+                 <div class="muted">Resources • Support • Awareness</div> 
+                </div> 
+            </div> 
+            <nav aria-label="Main navigation"> 
+              <a href="#home" data-target="home" class="active">Home</a> 
+              <a href="#about" data-target="about">About</a>
+              <a href="#causes" data-target="causes">Causes</a> 
+              <a href="#symptoms" data-target="symptoms">Symptoms</a> 
+              <a href="#tips" data-target="tips">Self-Care Tips</a>
+              <a href="#music" data-target="music">Music to Listen</a>
+              <a href="#contact" data-target="contact">Contact</a> 
+            </nav> 
+            </header> 
+            
+            <main> 
+               <!-- HOME --> 
+              <section id="home" class="active"> 
+                <div class="hero"> 
+                    <div class="left card"> 
+                        <h2>You're not alone.</h2> 
+<p class="muted">Mental health is important, and understanding it shouldn’t feel overwhelming. Here, you’ll find clear explanations, helpful tips, and steps you can take toward feeling better. Keep scrolling to explore the resources, or head to the contact page to send a confidential message.</p>
+                        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="btn" onclick="showSection('contact')">Get support</button> 
+                        <button class="btn" 
+                        style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--accent-2)" onclick="showSection('about')">Learn more</button>
+                     </div> 
+                    </div> 
+                    <aside class="card" style="width:320px;"> 
+                        <h3 style="margin:0 0 8px 0">Quick tips</h3> 
+                        <ul class="muted" style="margin:0;padding-left:18px;line-height:1.7"> 
+                            <li>Keep a routine. Small steps matter.</li> 
+                            <li>Talk to someone you trust.</li> 
+                            <li>Limit news/social when overwhelmed.</li> 
+                            <li>Seek professional help if needed.</li> 
+                        </ul> 
+                    </aside> 
+                </div>
+
+        <div class="grid">
+          <div class="info card">
+            <h3>How to start</h3>
+            <p>Taking the first step can feel hard. Start small: breathe, write down one thing you're grateful for, or send a message to a friend. If you're in immediate danger or have an emergency, contact local emergency services right away.</p>
+
+            <div class="about">
+              <h3>What's on this site</h3>
+              <p class="muted">This site includes quick guides, self-help strategies, safety-planning tips, and information on how to reach professional support. The contact form lets you send private messages(while this demo doesn’t send real emails, it demonstrates how submissions can be safely collected).</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Resources</h3>
+            <p class="muted">If you're looking for hotlines, local counseling, or crisis centers, search for reputable local health services or national mental health organizations in your country.</p>
+          </div>
+        </div>
+      </section>
+
+   <!-- ABOUT -->
+<section id="about">
+  <div class="card">
+    <h2>About</h2>
+
+    <p class="muted">
+      This site is a gentle, accessible space created to support mental health awareness,
+      self-care, and emotional well-being. It offers simple explanations, practical tips,
+      and helpful tools that anyone can use. While this resource can improve understanding,
+      it is not a replacement for professional diagnosis, counseling, or medical treatment.
+    </p>
+
+    <h3>Mission</h3>
+    <p class="muted">
+      To make mental health knowledge easier to understand, reduce stigma, and encourage people
+      to seek help when they need it. Everyone deserves support, clarity, and a safe place
+      to learn about their well-being.
+    </p>
+
+    <h3>Who This Is For</h3>
+    <p class="muted">This platform is designed for individuals who want:</p>
+    <ul class="muted" style="padding-left:18px; line-height:1.7">
+      <li>Clear and simple explanations about mental health topics.</li>
+      <li>Guidance on recognizing symptoms, causes, and stressors.</li>
+      <li>Practical self-care steps that are easy to apply.</li>
+      <li>A calm, nonjudgmental environment to explore emotional wellness.</li>
+    </ul>
+
+    <h3>What This Site Aims To Do</h3>
+    <ul class="muted" style="padding-left:18px; line-height:1.7">
+      <li>Provide awareness and understanding of mental health issues.</li>
+      <li>Offer supportive, beginner-friendly educational content.</li>
+      <li>Normalize conversations about emotional well-being.</li>
+      <li>Encourage people to reach out to mental health professionals.</li>
+      <li>Promote healthy self-care habits for long-term wellness.</li>
+    </ul>
+
+    <h3>Values</h3>
+    <ul class="muted" style="padding-left:18px; line-height:1.7">
+      <li><strong>Compassionate:</strong> Information shared with warmth, kindness, and zero judgment.</li>
+      <li><strong>Accessible:</strong> Simple language, clear structure, and readable formatting.</li>
+      <li><strong>Evidence-aware:</strong> Encourages professional help and aligns with trusted mental health principles.</li>
+      <li><strong>Respectful:</strong> Honors each person’s unique experiences and emotional needs.</li>
+      <li><strong>Supportive:</strong> Focuses on comfort, understanding, and empowerment.</li>
+    </ul>
+
+    <h3>Design Philosophy</h3>
+    <p class="muted">
+      This site is crafted with calmness, clarity, and comfort in mind. It uses soft colors,
+      gentle spacing, and clean typography to reduce visual stress. The layout avoids clutter so you
+      can read and reflect without feeling overwhelmed. Everything is designed to feel supportive,
+      grounding, and easy on the eyes.
+    </p>
+
+
+  </div>
+</section>
+
+
+
+<!-- CAUSES -->
+<section id="causes">
+  <div class="card">
+    <h2>Causes of Mental Health Issues</h2>
+
+    <p class="causes-description intro-description">
+      These are common factors that may contribute to mental health challenges. 
+      Understanding the causes can help in identifying what influences emotional 
+      and psychological well-being. (click the issues to see the description)
+    </p>
+
+    <div class="causes-list">
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Stressful life events or trauma
+        <p class="cause-desc">Experiences like accidents, disasters, or personal crises can overwhelm your ability to cope.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Genetics or family history
+        <p class="cause-desc">Mental health conditions can be more likely if they run in the family.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Chronic illness or medical conditions
+        <p class="cause-desc">Long-term physical illnesses may affect emotional stability and stress levels.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Substance abuse
+        <p class="cause-desc">Alcohol or drugs can disrupt mental balance and lead to dependency issues.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Social isolation or loneliness
+        <p class="cause-desc">Lack of connection with others can increase sadness and anxiety.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Childhood neglect or abuse
+        <p class="cause-desc">Early negative experiences can shape emotional development and stress responses.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Bullying or discrimination
+        <p class="cause-desc">Being treated unfairly can deeply affect confidence and mental stability.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Loss of a loved one or relationship breakup
+        <p class="cause-desc">Major emotional loss can lead to sadness, grief, and emotional distress.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Unhealthy work or school environment
+        <p class="cause-desc">High pressure, conflict, or stress in daily environments can impact mental well-being.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Financial difficulties or job loss
+        <p class="cause-desc">Money-related stress is a major contributor to anxiety and emotional strain.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Unresolved emotional pain
+        <p class="cause-desc">Holding onto past hurt can prevent healing and emotional growth.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Prolonged exposure to stress or fear
+        <p class="cause-desc">Constant stress can overwhelm the body and mind, leading to burnout.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Lack of emotional support from others
+        <p class="cause-desc">Feeling unsupported can make challenges harder to deal with alone.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Negative thinking patterns and self-talk
+        <p class="cause-desc">Repeated negative thoughts can lower confidence and emotional resilience.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Imbalance in brain chemistry
+        <p class="cause-desc">Chemical imbalances may affect mood, stress levels, and emotions.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Poor sleep habits or exhaustion
+        <p class="cause-desc">Lack of rest can reduce emotional control and increase irritability or anxiety.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Chronic pain or disability
+        <p class="cause-desc">Long-term physical discomfort can increase emotional stress and frustration.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Social pressure or unrealistic expectations
+        <p class="cause-desc">Trying to meet unrealistic standards can cause stress and low self-worth.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Feeling unseen or unheard
+        <p class="cause-desc">Not feeling valued or acknowledged can affect emotional well-being.</p>
+      </div>
+
+      <div class="causes-item">
+        <span class="causes-icon">•</span>
+        Sudden life changes or uncertainty about the future
+        <p class="cause-desc">Unexpected shifts can create confusion, stress, or fear.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- SYMPTOMS -->
+<section id="symptoms">
+  <div class="card">
+    <h2>Common Symptoms</h2>
+
+    <p class="symptoms-description">
+  These common symptoms can be signs of emotional stress, anxiety, or depression. 
+  Becoming aware of them can help you understand what you're feeling and when it 
+  might be time to seek support or take care of your mental well-being. 
+  (click the symptoms to see the description)
+    </p>
+
+    <div class="symptoms-list">
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Persistent sadness or anxiety
+        <p class="symptoms-desc">Feeling sad or anxious for long periods may signal emotional overload or mental fatigue.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Loss of interest in daily activities
+        <p class="symptoms-desc">Things that used to feel enjoyable begin to feel empty or unmotivating.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Difficulty concentrating or sleeping
+        <p class="symptoms-desc">Stress or emotional strain makes it hard to focus or maintain healthy sleep.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Fatigue or appetite changes
+        <p class="symptoms-desc">Body energy and eating patterns shift when mental health is affected.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Feeling sad or worried most of the time
+        <p class="symptoms-desc">Persistent emotional weight may be a sign of depression or anxiety.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Trouble sleeping or sleeping too much
+        <p class="symptoms-desc">Sleep imbalance is a common sign of emotional stress.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Feeling tired all the time
+        <p class="symptoms-desc">Mental or emotional strain can drain physical energy.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Avoiding friends or family
+        <p class="symptoms-desc">Social withdrawal happens when you feel overwhelmed or disconnected.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Feeling guilty, useless, or not enough
+        <p class="symptoms-desc">Negative thoughts may become stronger during emotional struggles.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Getting angry or upset quickly
+        <p class="symptoms-desc">Irritability increases when emotions are difficult to manage.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Worrying too much
+        <p class="symptoms-desc">Excessive worry can interrupt daily life and peace of mind.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        No energy or motivation
+        <p class="symptoms-desc">A low mood can make even small tasks feel overwhelming.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Body pain with no clear reason
+        <p class="symptoms-desc">Stress can cause headaches, muscle pain, or stomach discomfort.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Feeling empty or like nothing matters
+        <p class="symptoms-desc">Emotional numbness is a sign that your mental state needs attention.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Using alcohol or substances to cope
+        <p class="symptoms-desc">Turning to substances may be a sign of deeper emotional pain.</p>
+      </div>
+
+      <div class="symptoms-item">
+        <span class="symptoms-icon">•</span>
+        Thoughts of hopelessness
+        <p class="symptoms-desc">Feeling like things won’t improve is a serious mental health warning sign.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SELF-CARE TIPS -->
+<section id="tips">
+  <div class="card">
+    <h2>Self-Care Tips</h2>
+
+    <p class="tips-description">
+      These simple self-care practices can help improve your mental, emotional, 
+      and physical well-being. Choose a few that resonate with you and try 
+      incorporating them into your daily routine.(click the tips to see the description)
+    </p>
+
+    <div class="tips-list">
+
+      <div class="tips-item">
+        <span class="tips-icon">💡</span> Practice mindfulness or meditation daily
+        <p class="tip-desc">Helps calm your mind and improve focus by grounding your thoughts.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🏃‍♂️</span> Exercise regularly — even short walks help
+        <p class="tip-desc">Physical movement releases stress and boosts your mood naturally.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🛏️</span> Maintain a healthy sleep schedule
+        <p class="tip-desc">Quality sleep restores your body and supports emotional balance.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🥗</span> Eat nutritious meals and stay hydrated
+        <p class="tip-desc">Good nutrition improves energy, thinking, and emotional stability.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🗣️</span> Talk to friends, family, or counselors
+        <p class="tip-desc">Sharing your feelings reduces stress and helps you feel supported.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🧠</span> Notice what you feel instead of pushing it away
+        <p class="tip-desc">Acknowledging emotions helps you process and understand them better.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">⚡</span> Limit the things that overstimulate your brain
+        <p class="tip-desc">Reducing noise and fast-paced content helps your mind slow down.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🛋️</span> Let your brain rest, not just your body
+        <p class="tip-desc">Mental breaks help your thoughts reset and reduce overload.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">💬</span> Talk to yourself like you would talk to someone you care about
+        <p class="tip-desc">Kind self-talk builds confidence and reduces internal pressure.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">💃</span> Move your body when your mind feels heavy
+        <p class="tip-desc">Gentle movement helps release tension and improves emotional flow.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🛡️</span> Create a safe space for your thoughts
+        <p class="tip-desc">Having a peaceful environment supports mental clarity and comfort.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">⚖️</span> Keep social energy in balance
+        <p class="tip-desc">Balancing interactions prevents burnout and preserves emotional energy.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🎉</span> Celebrate small progress
+        <p class="tip-desc">Recognizing small wins boosts motivation and self-worth.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🌸</span> Surround yourself with gentle things
+        <p class="tip-desc">Soft environments reduce stress and help you feel at ease.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">😊</span> Let yourself feel joy without guilt
+        <p class="tip-desc">Allowing happiness supports emotional healing and balance.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🍽️</span> Eat something, even if it's small
+        <p class="tip-desc">A little nourishment helps stabilize your mood and energy.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🤫</span> Sit in silence for 1 minute
+        <p class="tip-desc">A quiet pause helps reset your thoughts and breathing.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">💨</span> Take deep breaths before reacting
+        <p class="tip-desc">Deep breaths calm your mind and prevent emotional reactions.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">👥</span> Spend time with someone who feels safe
+        <p class="tip-desc">Being with trusted people increases comfort and emotional safety.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🛑</span> Limit negative self-talk
+        <p class="tip-desc">Reducing harsh thoughts protects your self-esteem and peace.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🎯</span> Do one thing at a time
+        <p class="tip-desc">Focusing on one task reduces stress and improves productivity.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🎵</span> Listen to music that feels gentle
+        <p class="tip-desc">Soft music relaxes your mind and regulates emotions.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🚶</span> Step away from people or situations that drain you
+        <p class="tip-desc">Protecting your energy helps prevent emotional burnout.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🌡️</span> Keep your body warm
+        <p class="tip-desc">Warmth comforts your body and reduces stress-related tension.</p>
+      </div>
+
+      <div class="tips-item">
+        <span class="tips-icon">🙂</span> Smile at yourself in the mirror
+        <p class="tip-desc">A simple smile boosts your mood and strengthens self-kindness.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- MUSIC TO LISTEN -->
+<section id="music">
+  <div class="card">
+    <h2>Music to Listen</h2>
+    <p class="muted">Music can help calm the mind, reduce stress, and improve mood. Here are some recommended types:</p>
+    <ul class="muted" style="padding-left:18px;line-height:1.7">
+      <li>✨ Instrumental or classical music</li>
+      <li>🎧 Lo-fi or chill beats</li>
+      <li>🌿 Nature sounds and ambient tracks</li>
+      <li>🌈 Uplifting or positive lyrics</li>
+    </ul>
+
+    <p class="muted">Here's a track you can play right now — or choose whose playlist to explore:</p>
+
+    <!-- 🎵 Dropdown to choose person -->
+    <div style="text-align:center; margin-bottom:15px;">
+      <label for="personSelect" style="font-weight:600;">Choose a playlist:</label>
+      <select id="personSelect" onchange="showPlaylist()" style="padding:8px 12px; border-radius:8px; border:1px solid #ccc; font-size:15px;">
+        <option value="">-- Select a person --</option>
+        <option value="p1">🎧 L’s Pick</option>
+        <option value="p2">🎶 Person 2</option>
+        <option value="p3">🌼 Person 3</option>
+        <option value="p4">💖 Person 4</option>
+        <option value="p5">🌙 Person 5</option>
+      </select>
+    </div>
+
+    <!-- 🎧 Playlists -->
+    <div id="playlistContainer" style="text-align:center;"></div>
+  </div>
+</section>
+
+<!-- 💡 Playlist data + script -->
+<script>
+  const playlists = {
+    p1: [
+      ["https://youtu.be/bIB8EWqCPrQ?si=RUK3VA9YWfEipnxk", "Song 1"],
+      ["https://youtu.be/_cOLOWGtAHk?si=VnDW-YhPXi3YtqBv", "Song 2"],
+      ["https://youtu.be/wKzm2tl0G4Q?si=sHqL6j9He3h8wdSR", "Song 3"],
+      ["https://youtu.be/_BCtgSCulIU?si=zrBO4fjFixj33_ak", "Song 4"],
+      ["https://youtu.be/KdoKZEQsqSQ?si=P6dcwfJ4AmJWwgoD", "Song 5"]
+    ],
+    p2: [
+      ["https://youtu.be/ooOak5FVkpM?si=dXCFdujARFEiLj77", "Song 1"],
+      ["https://youtu.be/QzA-e57xDhg?si=BJ-09xiDYQT0Apfe", "Song 2"],
+      ["https://youtu.be/kpL9kOQQTT0?si=iiYBTWbCmiaEp16d", "Song 3"],
+      ["https://youtu.be/p1iOzVhbllg?si=jZCRGmi_UOeCWSr1", "Song 4"],
+      ["https://youtu.be/8xIvHsvaNc8?si=Eq4FdDyWsVjq99i8", "Song 5"]
+    ],
+    p3: [
+      ["https://youtu.be/DuKb1yF5Wh4?si=SL_iMNHxkUBANhJ4", "Song 1"],
+      ["https://youtu.be/uRL1c9aCNlE?si=pStJYRk7WUNwcilY", "Song 2"],
+      ["https://youtu.be/4tzBTcCfBOA?si=mzkCm0ToOoQSm2Z1", "Song 3"],
+      ["https://youtu.be/dqm_ow_mVCM?si=FIQb1FSFRwvAHnh5", "Song 4"],
+      ["https://youtu.be/xyVamctNyKU?si=F7vvnS1Z_oegtxGI", "Song 5"]
+    ],
+    p4: [
+      ["https://youtu.be/aWaMDsxe4Lk?si=TPIijuZ15JvbahAL", "Song 1"],
+      ["https://youtu.be/dsCv_NcT0uQ?si=T2Px1A5CjWox26vn", "Song 2"],
+      ["https://youtu.be/fbXPsgMGsR0?si=BaHW_leZspZ_8Gsu", "Song 3"],
+      ["https://youtu.be/XpDUD8nJOZY?si=8nE1H0SXLIa7j_k8", "Song 4"],
+      ["https://youtu.be/xSw_VfcLJWc?si=PU9BlUXsn2BA29HE", "Song 5"]
+    ],
+    p5: [
+      ["https://youtu.be/pzFnkr1jAwA?si=QMIYq42zJ2J2Y929", "Song 1"],
+      ["https://youtu.be/4tzBTcCfBOA?si=LOoKnaaVTobN43vY", "Song 2"],
+      ["https://youtu.be/XbxNtPiCBK8?si=5Zy8cHmWGBHiyIZE", "Song 3"],
+      ["https://youtu.be/ty7g7CVD7NI?si=_y5HpwRbF8ot0Ij_", "Song 4"],
+      ["https://youtu.be/8xIvHsvaNc8?si=hktRFyKNtf2b4HPw", "Song 5"]
+    ]
+  };
+
+  function showPlaylist() {
+    const container = document.getElementById("playlistContainer");
+    const selected = document.getElementById("personSelect").value;
+    container.innerHTML = ""; 
+    if (!selected) return;
+
+    const colors = {
+      p1: "#3b82f6",
+      p2: "#10b981",
+      p3: "#f59e0b",
+      p4: "#ec4899",
+      p5: "#8b5cf6"
+    };
+
+    const songs = playlists[selected];
+    songs.forEach(([url, title]) => {
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      a.textContent = title;
+      a.style = `
+        display:inline-block;
+        margin:8px;
+        background-color:${colors[selected]};
+        color:white;
+        padding:10px 18px;
+        border-radius:12px;
+        text-decoration:none;
+        font-weight:600;
+        transition:transform 0.2s, box-shadow 0.3s;
+      `;
+      a.onmouseover = () => {
+        a.style.transform = "scale(1.05)";
+        a.style.boxShadow = `0 0 15px ${colors[selected]}`;
+      };
+      a.onmouseout = () => {
+        a.style.transform = "scale(1)";
+        a.style.boxShadow = `0 0 8px ${colors[selected]}`;
+      };
+      container.appendChild(a);
+    });
+  }
+</script>
+
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="card">
+          <h2>Contact</h2>
+          <p class="muted">Send a message if you'd like to reach out. This form validates input and shows a local success message (no emails are sent in this demo).</p>
+
+          <form id="contactForm" aria-label="Contact form" novalidate>
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
+              <button type="submit" class="btn">Send message</button>
+              <div id="formStatus" class="muted" aria-live="polite"></div>
+            </div>
+          </form>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">© <span id="year"></span> Mental health — This demo site is for informational purposes only.</div>
+    </footer>
+  </div>
+
+  <script>
+
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('main section');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    function showSection(id){
+      sections.forEach(s => s.classList.toggle('active', s.id === id));
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+
+      history.replaceState(null, '', '#'+id);
+    }
+
+    navLinks.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const t = a.dataset.target;
+        showSection(t);
+      });
+    });
+
+
+    const initial = location.hash.replace('#','') || 'home';
+    if(document.getElementById(initial)) showSection(initial);
+
+
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      if(!name || !email || !message){
+        status.textContent = 'Please fill all fields.';
+        return;
+      }
+      if(!/^\S+@\S+\.\S+$/.test(email)){
+        status.textContent = 'Please enter a valid email.';
+        return;
+      }
+
+      status.textContent = 'Thanks — your message was received (demo).';
+      form.reset();
+      setTimeout(()=> status.textContent = '', 4500);
+    });
+
+
+    navLinks.forEach(a=>a.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') a.click(); }));
+
+  const items = document.querySelectorAll(".tips-item");
+
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      const desc = item.querySelector(".tip-desc");
+      desc.style.display = desc.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  const symptoms = document.querySelectorAll(".symptoms-item");
+
+  symptoms.forEach(item => {
+    item.addEventListener("click", () => {
+      const desc = item.querySelector(".symptoms-desc");
+      desc.style.display = desc.style.display === "block" ? "none" : "block";
+    });
+  });
+
+   document.querySelectorAll('.causes-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const desc = item.querySelector('.cause-desc');
+      desc.style.display = desc.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+</script>
+</body>
+</html>
